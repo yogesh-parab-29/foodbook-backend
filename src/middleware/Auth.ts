@@ -6,8 +6,8 @@ import User from "../model/user";
 declare global {
   namespace Express {
     interface Request {
-      auth0Id: String;
-      userId: String;
+      auth0Id: string;
+      userId: string;
     }
   }
 }
@@ -42,7 +42,7 @@ export const jwtParse = async (
       return res.sendStatus(401);
     }
 
-    req.auth0Id = auth0Id as String;
+    req.auth0Id = auth0Id as string;
     req.userId = user._id.toString();
     next();
   } catch (e) {}

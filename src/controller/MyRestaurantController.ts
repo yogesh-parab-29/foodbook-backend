@@ -6,7 +6,7 @@ import mongoose, { Mongoose } from "mongoose";
 const createMyrestaurant = async (req: Request, res: Response) => {
   try {
     const existingRestaurant = await Restaurant.find({
-    //   user: req.userId,
+      user: req.userId,
     });
 
     if (existingRestaurant) {
@@ -21,8 +21,14 @@ const createMyrestaurant = async (req: Request, res: Response) => {
     const restaurant = new Restaurant(req.body);
     restaurant.imageUrl = uploadResponse.url;
     restaurant.user = new mongoose.Types.ObjectId(req.userId);
-    await restaurant.save()
+    await restaurant.save();
+
+    res.status(201).send(restaurant);
   } catch (e) {
     res.status(500).json({ message: "Error while creating restaturant" });
   }
+};
+
+export default {
+  createMyrestaurant,
 };
