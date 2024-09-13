@@ -42,7 +42,7 @@ const restaurantSchema = new mongoose.Schema({
       required: true,
     },
   ],
-  MenuItem: [menuItemSchema],
+  menuItem: [menuItemSchema],
   imageUrl: {
     type: String,
     require: true,

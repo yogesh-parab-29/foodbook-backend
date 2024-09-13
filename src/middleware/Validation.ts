@@ -26,3 +26,26 @@ export const validateMyrequest = [
   body("country").isString().notEmpty().withMessage("Country must be a string"),
   handleValidationError,
 ];
+
+export const validateMyRestaurantRequest = [
+  body("restaurantName")
+    .isString()
+    .notEmpty()
+    .withMessage("Restaurant name must be a string"),
+  body("city").isString().notEmpty().withMessage("City must be a string"),
+  body("country").isString().notEmpty().withMessage("Country must be a string"),
+  body("deliveryPrice")
+    .isFloat({ min: 0 })
+    .withMessage("Delivery price must be a positive number"),
+  body("estimatedDeliveryTime")
+    .isInt({ min: 0 })
+    .withMessage("Time must be a positive integer"),
+  body("cuisuines")
+    .isArray()
+    .notEmpty()
+    .withMessage("Cuisines must be an array"),
+  body("menuItem")
+    .isArray()
+    .notEmpty()
+    .withMessage("Cuisines must be an array"),
+];
