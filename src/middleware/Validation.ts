@@ -40,12 +40,21 @@ export const validateMyRestaurantRequest = [
   body("estimatedDeliveryTime")
     .isInt({ min: 0 })
     .withMessage("Time must be a positive integer"),
-  body("cuisuines")
+  body("cuisines")
     .isArray()
-    .notEmpty()
-    .withMessage("Cuisines must be an array"),
-  body("menuItem")
+    .custom((arr) => arr.length > 0)
+    .withMessage("Please select at least one cuisine"),
+  body("menuItems")
     .isArray()
+    .custom((arr) => arr.length > 0)
+    .withMessage("Menu items cannot be empty"),
+  body("menuItems.*.name")
+    .isString()
     .notEmpty()
-    .withMessage("Cuisines must be an array"),
+    .withMessage("Menu Item name must be a string"),
+  body("menuItems.*.price")
+    .isFloat({ min: 0 })
+    .notEmpty()
+    .withMessage("Menu Item price must be positive"),
+  handleValidationError,
 ];
