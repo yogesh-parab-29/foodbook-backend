@@ -2,9 +2,10 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
+import { v2 as cloudinary } from "cloudinary";
 import userRouter from "./routes/UserRoutes";
 import restaurantRouter from "./routes/RestaurantRoutes"
-import { v2 as cloudinary } from "cloudinary";
+import searchRestaurantRouter from "./routes/SearchRestaurantRoute"
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string).then(() => {
   console.log("connected to database");
@@ -29,6 +30,7 @@ app.get("/health", async (req: Request, res: Response) => {
 
 app.use("/api/my/user", userRouter);
 app.use("/api/my/restaurant", restaurantRouter)
+app.use("/api/restaurant", searchRestaurantRouter)
 app.listen(7000, () => {
   console.log("server started at 7000");
 });
